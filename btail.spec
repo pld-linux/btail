@@ -8,6 +8,8 @@ Group:		Applications/Text
 Source0:	http://www.vanheusden.com/btail/%{name}-%{version}.tgz
 # Source0-md5:	08f785b77f559b3d4e86fe2dbf4ec752
 URL:		http://www.vanheusden.com/btail/
+BuildRequires:	gdbm-devel
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -18,10 +20,10 @@ stuff, but passes through anything important or out of the ordinary.
 
 %description -l pl.UTF-8
 Btail monitoruje plik z logami na wypadek niestandardowych wydarzeń.
-Wykorzystuje filtr bayesiański do określenia które wydarzenia są warte
-pokazania, a które należy opuścić. Wszystkie rutynowe komunikaty są
-więc odfiltrowane, natomiast nieregularne i ważne wydarzenia zostają
-przepuszczone przez filtr
+Wykorzystuje filtr bayesiański do określenia które wydarzenia są
+warte pokazania, a które należy opuścić. Wszystkie rutynowe
+komunikaty są więc odfiltrowane, natomiast nieregularne i ważne
+wydarzenia zostają przepuszczone przez filtr
 
 %prep
 %setup -q
@@ -29,7 +31,9 @@ sed -i -e  's/ncurses.h/ncurses\/ncurses.h/' error.cpp
 sed -i -e 's/\(\/usr\/local\/bin\)/\$\(DESTDIR\)\/usr\/bin/' Makefile
 
 %build
-%{__make}
+%{__make} \
+	CXXFLAGS="%{rpmcxxflags}" \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
