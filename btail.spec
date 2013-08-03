@@ -2,7 +2,7 @@ Summary:	Bayesian log filter
 Summary(pl.UTF-8):	Filtr beyesiański do logów
 Name:		btail
 Version:	0.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://www.vanheusden.com/btail/%{name}-%{version}.tgz
